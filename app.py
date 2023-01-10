@@ -9,9 +9,10 @@ model = AutoModelForCausalLM.from_pretrained(model_name, pad_token_id=tokenizer.
 
 generator = pipeline('text-generation', model=model, tokenizer=tokenizer)
 
-prompt_text = st.text_area(label = "Enter your prompt text...") #e.g. Ibu pergi ke pasar bersama Budi membeli sayuran dan
+prompt_text = st.text_area(label = "Enter your prompt text...", value="Skripsi merupakan tugas akhir dari mahasiswa")
 
-generator = generator(prompt_text, min_length=10, max_length=100, num_return_sequences=1, num_beams=10)
+with st.spinner("Working on it..."):
+  generator = generator(prompt_text, min_length=10, max_length=100, num_return_sequences=1, num_beams=10)
 
 lst = []
 lst.append(generator)
@@ -20,4 +21,7 @@ clean1=re.sub("({'generated_text': ')","",final_lst)
 clean2=re.sub("\[\[","",clean1)
 output=re.sub("'}]]","",clean2)
 
+
+st.success("Successfully generate the text!")
+st.balloons()
 st.text(output)
