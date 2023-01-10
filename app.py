@@ -1,4 +1,3 @@
-import re
 import gradio as gr
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 
